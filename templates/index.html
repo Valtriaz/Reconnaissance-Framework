@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>🧠 Valtriaz Nmap Scanner</title>
+  <style>
+    body { background: #0f0f0f; color: #eee; font-family: monospace; padding: 20px; }
+    input, button { padding: 8px; margin: 10px 0; font-size: 1rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #444; padding: 10px; text-align: left; }
+    th { background-color: #222; color: #0f0; }
+    td { background-color: #1a1a1a; }
+  </style>
+</head>
+<body>
+  <h1>🧠 Nmap -A Scan</h1>
+
+  <form method="POST">
+    <label>Target IP:</label><br>
+    <input type="text" name="target_ip" placeholder="10.10.11.76" required>
+    <button type="submit">Scan</button>
+  </form>
+
+  <a href="/gobuster">👉 Gobuster Scanner</a>
+
+  {% if data %}
+    <h2>📍 Host Info</h2>
+    <p><strong>Hostname:</strong> {{ data.hostname or "N/A" }}</p>
+    <p><strong>IP Address:</strong> {{ data.ip }}</p>
+    <p><strong>OS Guess:</strong> {{ data.os or "Unknown" }}</p>
+
+    <h2>📊 Open Ports</h2>
+    <table>
+      <tr>
+        <th>Port</th>
+        <th>State</th>
+        <th>Service</th>
+        <th>Version</th>
+      </tr>
+      {% for svc in data.services %}
+      <tr>
+        <td>{{ svc.port }}</td>
+        <td>{{ svc.state }}</td>
+        <td>{{ svc.service }}</td>
+        <td>{{ svc.version }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% elif output %}
+    <pre>{{ output }}</pre>
+  {% endif %}
+</body>
+</html>

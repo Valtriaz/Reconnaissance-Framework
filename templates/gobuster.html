@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>🛠️ Gobuster Scanner</title>
+  <style>
+    body { background: #0f0f0f; color: #eee; font-family: monospace; padding: 20px; }
+    input, button { padding: 8px; margin: 10px 0; font-size: 1rem; width: 100%; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #444; padding: 10px; text-align: left; }
+    th { background-color: #222; color: #0f0; }
+    td { background-color: #1a1a1a; }
+    a { color: #0f0; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <h1>🛠️ Gobuster Dir Mode</h1>
+
+  <form method="POST">
+    <label>Target URL:</label><br>
+    <input type="text" name="target" placeholder="http://10.10.11.74" required><br>
+
+    <label>Wordlist Path:</label><br>
+    <input type="text" name="wordlist" placeholder="/usr/share/seclists/Discovery/Web-Content/common.txt" required><br>
+
+    <button type="submit">🚀 Start Gobuster</button>
+  </form>
+
+  <a href="/">⬅ Back to Nmap</a>
+
+  {% if results %}
+    <h2>📂 Results</h2>
+    <table>
+      <tr>
+        <th>Path</th>
+        <th>Status</th>
+        <th>Size</th>
+      </tr>
+      {% for r in results %}
+      <tr>
+        <td>{{ r.path }}</td>
+        <td>{{ r.status }}</td>
+        <td>{{ r.size }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% elif output %}
+    <pre>{{ output }}</pre>
+  {% endif %}
+</body>
+</html>
